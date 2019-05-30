@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-      motor.set(ControlMode.PercentOutput, 0.5);
+    L1.set(ControlMode.PercentOutput, 0.5);
   }
 
   /**
