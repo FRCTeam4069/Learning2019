@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
     double averageSpeed = stick.getY(GenericHID.Hand.kRight);
     double leftSpeed = averageSpeed + difference;
     double rightSpeed = averageSpeed - difference;
-    L1.set(ControlMode.PercentOutput, leftSpeed;
+    L1.set(ControlMode.PercentOutput, leftSpeed);
     R1.set(ControlMode.PercentOutput, -rightSpeed);
   }
 
