@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double difference = stick.getX(GenericHID.Hand.kRight);
-    double averageSpeed = stick.getY(GenericHID.Hand.kRight);
+    double averageSpeed = -stick.getY(GenericHID.Hand.kRight);
     double leftSpeed = averageSpeed + difference;
     double rightSpeed = averageSpeed - difference;
     L1.set(ControlMode.PercentOutput, leftSpeed);
