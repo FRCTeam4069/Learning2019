@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
 
-  TalonSRX motor = new TalonSRX(11);
-  Joystick stick = new Joystick(0);
+  TalonSRX motor = new TalonSRX(8);
+  TalonSRX motor2 = new TalonSRX(9);
+  Joystick stick = new Joystick(1);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double stickValue = stick.getX(GenericHID.Hand.kRight);
     motor.set(ControlMode.PercentOutput, stickValue);
+    motor2.set(ControlMode.PercentOutput, stickValue);
   }
 
   /**
