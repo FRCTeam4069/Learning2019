@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
       System.out.println("Init");
+      motor2.follow(motor);
   }
 
   /**
@@ -62,7 +63,6 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double stickValue = stick.getX(GenericHID.Hand.kRight);
     motor.set(ControlMode.PercentOutput, stickValue);
-    motor2.set(ControlMode.PercentOutput, stickValue);
   }
 
   /**
