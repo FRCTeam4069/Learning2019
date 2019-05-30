@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
 
-  TalonSRX motor = new TalonSRX(5);
+  TalonSRX motor = new TalonSRX(11);
   Joystick stick = new Joystick(0);
 
   /**
