@@ -15,8 +15,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
 
-  TalonSRX motor = new TalonSRX(8);
-  TalonSRX motor2 = new TalonSRX(9);
+  TalonSRX L1 = new TalonSRX(8);
+  TalonSRX L2 = new TalonSRX(9);
+  TalonSRX R1 = new TalonSRX(6);
+  TalonSRX R2 = new TalonSRX(7);
   Joystick stick = new Joystick(1);
 
   /**
@@ -26,7 +28,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
       System.out.println("Init");
-      motor2.follow(motor);
+      L2.follow(L1);
+      R2.follow(R1);
+
   }
 
   /**
@@ -62,7 +66,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double stickValue = stick.getX(GenericHID.Hand.kRight);
-    motor.set(ControlMode.PercentOutput, stickValue);
+    L1.set(ControlMode.PercentOutput, stickValue);
+    R1.set(ControlMode.PercentOutput, stickValue);
   }
 
   /**
@@ -74,6 +79,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    motor.set(ControlMode.PercentOutput, 0);
+    L1.set(ControlMode.PercentOutput, 0);
+    R1.set(ControlMode.PercentOutput, 0);
   }
 }
