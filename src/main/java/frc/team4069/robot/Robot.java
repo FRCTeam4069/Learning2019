@@ -1,5 +1,9 @@
 package frc.team4069.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
@@ -10,6 +14,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  TalonSRX motor = new TalonSRX(5);
+  Joystick stick = new Joystick(0);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -37,6 +44,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+      motor.set(ControlMode.PercentOutput, 0.5);
   }
 
   /**
@@ -51,6 +59,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    double stickValue = stick.getX(GenericHID.Hand.kRight);
+    motor.set(ControlMode.PercentOutput, stickValue);
   }
 
   /**
@@ -58,5 +68,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  @Override
+  public void disabledInit() {
+    motor.set(ControlMode.PercentOutput, 0);
   }
 }
