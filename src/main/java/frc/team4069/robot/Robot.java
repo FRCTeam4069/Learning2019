@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,7 +20,8 @@ public class Robot extends TimedRobot {
   TalonSRX L2 = new TalonSRX(9);
   TalonSRX R1 = new TalonSRX(6);
   TalonSRX R2 = new TalonSRX(7);
-  Joystick stick = new Joystick(1);
+  TalonSRX slide = new TalonSRX(10);
+  Joystick stick = new Joystick(0);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -30,7 +32,9 @@ public class Robot extends TimedRobot {
       System.out.println("Init");
       L2.follow(L1);
       R2.follow(R1);
-
+      slide.setInverted(true);
+      slide.config_kP(0, 1.7);
+      slide.config_kD(0, 0.5);
   }
 
   /**
@@ -50,7 +54,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    L1.set(ControlMode.PercentOutput, 0.5);
+//    L1.set(ControlMode.PercentOutput, 0.5);
+    slide.set(ControlMode.Position, 5000);
   }
 
   /**
@@ -58,6 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    SmartDashboard.putNumber("Slide Position", slide.getSelectedSensorPosition());
   }
 
   /**
@@ -65,12 +71,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    double difference = stick.getX(GenericHID.Hand.kRight);
-    double averageSpeed = -stick.getY(GenericHID.Hand.kRight);
-    double leftSpeed = averageSpeed + difference;
-    double rightSpeed = averageSpeed - difference;
-    L1.set(ControlMode.PercentOutput, leftSpeed);
-    R1.set(ControlMode.PercentOutput, -rightSpeed);
+//    double difference = stick.getX(GenericHID.Hand.kRight);
+//    double averageSpeed = -stick.getY(GenericHID.Hand.kRight);
+//    double leftSpeed = averageSpeed + difference;
+//    double rightSpeed = averageSpeed - difference;
+//    L1.set(ControlMode.PercentOutput, leftSpeed);
+//    R1.set(ControlMode.PercentOutput, -rightSpeed);
   }
 
   /**
