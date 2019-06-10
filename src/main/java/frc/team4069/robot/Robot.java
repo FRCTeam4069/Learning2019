@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.team4069.robot.subsystems.Drivebase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +22,7 @@ public class Robot extends TimedRobot {
   Joystick stick = new Joystick(1);
   Drivebase base;
 
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -29,9 +31,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
       System.out.println("Init");
 
-      slide.setInverted(true);
-
       base = new Drivebase ();
+
+      slide.setInverted(true);
+      slide.config_kP(0, 1.7);
+      slide.config_kD(0, 0.5);
   }
 
   /**
@@ -51,6 +55,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    slide.set(ControlMode.Position, 5000);
   }
 
   /**
@@ -58,6 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    SmartDashboard.putNumber("Slide Position", slide.getSelectedSensorPosition());
   }
 
   /**
@@ -65,10 +71,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    slide.set(ControlMode.PercentOutput, stick.getX(GenericHID.Hand.kRight))
+    //slide.set(ControlMode.PercentOutput, stick.getX(GenericHID.Hand.kRight));
     double difference = stick.getX(GenericHID.Hand.kRight);
     double averageSpeed = -stick.getY(GenericHID.Hand.kRight);
     base.curvaturedrive(difference, averageSpeed);
+
   }
 
   /**
