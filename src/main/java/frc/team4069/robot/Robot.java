@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team4069.robot.commands.DriveStraightCommand;
 import frc.team4069.robot.subsystems.Drivebase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,7 +22,8 @@ public class Robot extends TimedRobot {
 
   TalonSRX slide = new TalonSRX (10);
   Joystick stick = new Joystick(1);
- public Drivebase base;
+  public Drivebase base;
+  Scheduler scheduler;
 
 
   /**
@@ -36,6 +39,8 @@ public class Robot extends TimedRobot {
       slide.setInverted(true);
       slide.config_kP(0, 1.7);
       slide.config_kD(0, 0.5);
+
+      scheduler = Scheduler.getInstance();
   }
 
   /**
@@ -55,7 +60,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    slide.set(ControlMode.Position, 5000);
+//    slide.set(ControlMode.Position, 5000);
+      scheduler.add(new DriveStraightCommand(this, 21));
   }
 
   /**
@@ -64,6 +70,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     SmartDashboard.putNumber("Slide Position", slide.getSelectedSensorPosition());
+    scheduler.run();
   }
 
   /**
