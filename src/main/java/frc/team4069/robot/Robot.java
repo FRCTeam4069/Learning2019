@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
 
   TalonSRX slide = new TalonSRX (10);
   Joystick stick = new Joystick(1);
-  Drivebase base;
+ public Drivebase base;
 
 
   /**
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
     //slide.set(ControlMode.PercentOutput, stick.getX(GenericHID.Hand.kRight));
     double difference = stick.getX(GenericHID.Hand.kRight);
     double averageSpeed = -stick.getY(GenericHID.Hand.kRight);
-    base.curvaturedrive(difference, averageSpeed);
+    base.curvaturedrive(averageSpeed, difference);
 
   }
 
